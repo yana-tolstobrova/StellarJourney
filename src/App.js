@@ -1,10 +1,10 @@
 import './App.css';
-import CardList from './components/Cards/Cards';
+import Main from './pages/Main';
 
 function App() {
   return (
     <div>
-      <CardList/>
+      <Main/>
     </div>
   );
 }

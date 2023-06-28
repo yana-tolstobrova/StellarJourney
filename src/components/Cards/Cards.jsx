@@ -59,11 +59,6 @@ const renderSelectedCards = () => {
 
   return (
     <div>
-      <ul className='timeline'>
-        <li>Pasado</li>
-        <li>Presente</li>
-        <li>Futuro</li>
-      </ul>
       <div className='selectedCards'>{renderSelectedCards()}</div>
       <div className="cards">
       {cards.map((card) => (

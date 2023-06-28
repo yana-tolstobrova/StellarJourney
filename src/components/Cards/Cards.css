@@ -13,19 +13,28 @@
 }
 .selectedCards{
     display: flex;
-    padding: 20px;
 }
 .selectedCard{
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 33%;
+    
 }
 .openedCard{
     width: 150px;
+    margin-top: -350px;
+    border-radius: 15px;
 }
 .timeline{
     list-style-type: none;
+    padding-left: 0%;
     display: flex;
-    justify-content: space-around;
+}
+.cardbox{
+    width: 150px;
+    height: 340px;
+    background-color: var(--accent-color);
+    opacity: 0.2;
+    border-radius: 15px;
 }
