@@ -2,20 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { fetchFilteredCards } from './ApiGetArray';
 import './Cards.css';
 
+
 const CardList = () => {
   const [cards, setCards] = useState([]);
   const [selectedCards, setSelectedCards] = useState([]);
   const [hiddenCards, setHiddenCards] = useState([]);
   const [shouldShuffle, setShouldShuffle] = useState(true);
-
-
+  const [isButtonsBoxDisplayed, setIsButtonsBoxDisplayed] = useState(false);
 
 
   useEffect(() => {
     const fetchData = async () => {
       const filteredCards = await fetchFilteredCards();
       setCards(filteredCards);
-      setShouldShuffle(true); // Enable shuffling when the page is refreshed
+      setShouldShuffle(true); 
 
     };
       
@@ -30,21 +30,31 @@ const CardList = () => {
         [mixedCards[i], mixedCards[j]] = [mixedCards[j], mixedCards[i]];
       }
       setCards(mixedCards);
-      setShouldShuffle(false); // Disable shuffling after the cards are shuffled once
+      setShouldShuffle(false); 
     }
   }, [shouldShuffle, cards]);
 
 
   const handleCardClick = (cardId) => {
-    if (selectedCards.length < 3) {
-      const selectedCard = cards.find(card => card.id === cardId);
-      setSelectedCards(prevSelectedCards => [...prevSelectedCards, selectedCard]);
-      setHiddenCards(prevHiddenCards => [...prevHiddenCards, cardId]);
-
-      console.log(selectedCard.spanishName)
-      
+  if (selectedCards.length < 3) {
+    const selectedCard = cards.find((card) => card.id === cardId);
+    if (hiddenCards.includes(cardId)) {
+      return; 
     }
-  };
+
+    setSelectedCards((prevSelectedCards) => {
+      const updatedSelectedCards = [...prevSelectedCards, selectedCard];
+      setHiddenCards((prevHiddenCards) => [...prevHiddenCards, cardId]);
+      setIsButtonsBoxDisplayed(updatedSelectedCards.length === 3);
+            
+      sessionStorage.setItem('selectedCards', JSON.stringify(updatedSelectedCards));
+
+
+      return updatedSelectedCards;
+    });
+
+  }
+};
 
 const renderSelectedCards = () => {
     return selectedCards.map((card) => (
@@ -56,10 +66,30 @@ const renderSelectedCards = () => {
     ));
   };
 
+const handlePageRefresh = () => {
+  window.location.reload();
+  sessionStorage.clear();
+};
 
+window.onload = () => {
+  sessionStorage.clear();
+};
+  
+  function saveData() {
+  const selectedCardsKey = `selectedCards_${localStorage.length}`;
+  const value = sessionStorage.getItem('selectedCards');
+  
+  localStorage.setItem(selectedCardsKey, value);
+  sessionStorage.removeItem('selectedCards');
+}
+  
   return (
     <div>
       <div className='selectedCards'>{renderSelectedCards()}</div>
+      <div className={isButtonsBoxDisplayed ? 'buttonsBox display' : 'buttonsBox'}>
+        <button className='buttonSave' onClick={saveData}>Guardar</button>
+        <button className='buttonRestart' onClick={handlePageRefresh}>Reiniciar</button>
+      </div>
       <div className="cards">
       {cards.map((card) => (
         <div key={card.id} onClick={() => handleCardClick(card.id)}
