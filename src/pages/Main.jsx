@@ -1,12 +1,15 @@
 import React from 'react'
+import { NavBar } from '../components/NavBar/NavBar'
+import Cards from '../components/Cards/Cards'
 import BoxForCards from '../components/Cards/BoxForCards'
-import CardList from '../components/Cards/Cards'
+
 
 export default function Main() {
   return (
-        <div>
-            <BoxForCards/>
-            <CardList/>
-        </div>
+    <div>
+      <NavBar />
+      <BoxForCards/>
+      <Cards />
+    </div>
   )
 }

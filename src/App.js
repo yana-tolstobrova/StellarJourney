@@ -1,12 +1,15 @@
-import './App.css';
-import Main from './pages/Main';
+import React from 'react';
+import Intro from './pages/Intro.jsx';
 
-function App() {
+const App = () => {
   return (
-    <div>
-      <Main/>
-    </div>
+      <div>
+      <Intro />
+      </div>
+      
+      
+    
   );
-}
+};
 
 export default App;

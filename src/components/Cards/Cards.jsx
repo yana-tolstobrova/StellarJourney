@@ -9,6 +9,7 @@ const CardList = () => {
   const [hiddenCards, setHiddenCards] = useState([]);
   const [shouldShuffle, setShouldShuffle] = useState(true);
   const [isButtonsBoxDisplayed, setIsButtonsBoxDisplayed] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
 
   useEffect(() => {
@@ -79,6 +80,8 @@ window.onload = () => {
   const selectedCardsKey = `selectedCards_${localStorage.length}`;
   const value = sessionStorage.getItem('selectedCards');
   
+    setIsButtonDisabled(true);
+
   localStorage.setItem(selectedCardsKey, value);
   sessionStorage.removeItem('selectedCards');
 }
@@ -87,7 +90,7 @@ window.onload = () => {
     <div>
       <div className='selectedCards'>{renderSelectedCards()}</div>
       <div className={isButtonsBoxDisplayed ? 'buttonsBox display' : 'buttonsBox'}>
-        <button className='buttonSave' onClick={saveData}>Guardar</button>
+        <button className='buttonSave' onClick={saveData} disabled={isButtonDisabled}>Guardar</button>
         <button className='buttonRestart' onClick={handlePageRefresh}>Reiniciar</button>
       </div>
       <div className="cards">
