@@ -6,15 +6,15 @@ export default function BoxForCards() {
     <div>
       <ul className='timeline'>
               <li className='selectedCard'>
-                  <span>Pasado</span>
+                  <span className='textTime'>Pasado</span>
                   <div className='cardbox'></div>
               </li>
               <li className='selectedCard'>
-                  <span>Presente</span>
+                  <span className='textTime'>Presente</span>
                   <div className='cardbox'></div>
               </li>
               <li className='selectedCard'>
-                  <span>Futuro</span>
+                  <span className='textTime'>Futuro</span>
                   <div className='cardbox'></div>
               </li>
           </ul>

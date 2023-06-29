@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { fetchFilteredCards } from './ApiGetArray';
+import { fetchFilteredCards } from './scripts/ApiGetArray';
 import './Cards.css';
 
 
@@ -61,7 +61,7 @@ const renderSelectedCards = () => {
     return selectedCards.map((card) => (
       <div key={card.id} className='selectedCard'>
         <img src={card.clowCard} alt={card.name} className="openedCard" />
-        <span>{card.spanishName}</span>
+        <span className='cardName'> {card.spanishName}</span>
         <span>{card.meaning}</span>
       </div>
     ));
@@ -77,13 +77,26 @@ window.onload = () => {
 };
   
   function saveData() {
-  const selectedCardsKey = `selectedCards_${localStorage.length}`;
+  const selectedCardsKey = `selectedCards_${localStorage.length / 2}`;
   const value = sessionStorage.getItem('selectedCards');
   
     setIsButtonDisabled(true);
+    
+    const today = new Date();  
+    const year = today.getFullYear(); 
+    const month = today.getMonth() + 1;  
+    const day = today.getDate();  
+
+    const dateFormat = `${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}/${year}`;
+
+    const DateKey = `Date_${localStorage.length / 2}`;
+    localStorage.setItem(DateKey, dateFormat);
+
 
   localStorage.setItem(selectedCardsKey, value);
-  sessionStorage.removeItem('selectedCards');
+    sessionStorage.removeItem('selectedCards');
+    
+  
 }
   
   return (

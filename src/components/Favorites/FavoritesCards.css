@@ -1,0 +1,17 @@
+.savedBox{
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: var(--accent-color);
+    padding: 1.5em;
+    font-size: 1.2em;
+    border-radius: 1em;
+    margin-bottom: 1.5em;
+}
+.line{
+    margin: 1em 0em;
+}
+.date{
+    font-style: italic;
+    font-weight: 300;
+}

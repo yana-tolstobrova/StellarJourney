@@ -7,30 +7,47 @@
 .card{
     width: 55px;
     margin: 0 10px 10px 0;
+    border-radius: 5px;
 }
 .hidden{
     opacity: 0;
 }
 .selectedCards{
     display: flex;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
 }
 .selectedCard{
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 33%;
-    
 }
-.openedCard{
+.selectedCard span{
+    text-align: center;
+}
+.textTime {
+    font-size: 2em;
+    margin-bottom: 1em;
+}
+.cardName{
+    font-size: 1.5em;
+    padding: 0.7em;
+}
+img.openedCard{
     width: 150px;
-    margin-top: -350px;
+    margin-top: -355px;
     border-radius: 15px;
 }
 .timeline{
     list-style-type: none;
     padding-left: 0%;
     display: flex;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
 }
 .cardbox{
     width: 150px;
@@ -42,12 +59,26 @@
     background-color: var(--accent-color);
     border: none;
     border-radius: 10px;
-    padding: 15px 25px;
+    padding: 15px 35px;
+    font-size: 1em;
+    cursor: pointer;
+}
+.buttonSave{
+    margin-right: 1em;
+}
+
+.buttonRestart {
+    margin-left: 1em;
+}
+
+.buttonRestart:hover, .buttonSave:hover {
+    background-color: #a66c1a;
 }
 
 .buttonsBox{
-    
     display: none;
+    text-align: center;
+    margin-bottom: 1em;
 }
 .display{
     display: block;
