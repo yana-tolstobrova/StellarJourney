@@ -10,6 +10,7 @@ const CardList = () => {
   const [shouldShuffle, setShouldShuffle] = useState(true);
   const [isButtonsBoxDisplayed, setIsButtonsBoxDisplayed] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [isPDisplayed, setIsPDisplayed] = useState(false);
 
 
   useEffect(() => {
@@ -47,7 +48,8 @@ const CardList = () => {
       const updatedSelectedCards = [...prevSelectedCards, selectedCard];
       setHiddenCards((prevHiddenCards) => [...prevHiddenCards, cardId]);
       setIsButtonsBoxDisplayed(updatedSelectedCards.length === 3);
-            
+      setIsPDisplayed(updatedSelectedCards.length !== 0);
+
       sessionStorage.setItem('selectedCards', JSON.stringify(updatedSelectedCards));
 
 
@@ -96,12 +98,13 @@ window.onload = () => {
   localStorage.setItem(selectedCardsKey, value);
     sessionStorage.removeItem('selectedCards');
     
-  
 }
   
   return (
+    
     <div>
       <div className='selectedCards'>{renderSelectedCards()}</div>
+      <p className={isPDisplayed ? 'displayNone' : 'textAfterBox'}>Elige 3 cartas del mazo</p>
       <div className={isButtonsBoxDisplayed ? 'buttonsBox display' : 'buttonsBox'}>
         <button className='buttonSave' onClick={saveData} disabled={isButtonDisabled}>Guardar</button>
         <button className='buttonRestart' onClick={handlePageRefresh}>Reiniciar</button>

@@ -5,10 +5,10 @@ import { NavBar } from '../components/NavBar/NavBar'
 
 export default function Favorites() {
   return (
-      <div>
-          <NavBar />
-          <FavoritesCards />
+    <div>
           <Background />
+          <NavBar />
+          <FavoritesCards />  
     </div>
   )
 }

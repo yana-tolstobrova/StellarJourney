@@ -17,7 +17,7 @@ export default function BoxForCards() {
                   <span className='textTime'>Futuro</span>
                   <div className='cardbox'></div>
               </li>
-          </ul>
+      </ul>
     </div>
   )
 }

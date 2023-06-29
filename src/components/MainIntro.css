@@ -1,0 +1,45 @@
+
+.bg-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+.main-intro{
+    z-index: 3;
+    margin-top: -62%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.logo{
+    width: 6em;
+    margin-bottom: 2em;
+}
+.main-intro button{
+    background-color: var(--accent-color);
+        border: none;
+        border-radius: 10px;
+        padding: 15px 35px;
+        font-size: 1em;
+        cursor: pointer;
+}
+.main-intro button:hover {
+    background-color: #a66c1a;
+}
+.textIntro{
+    width: 60%;
+    text-align: center;
+    margin-bottom: 2em;
+}
+.main-intro h1{
+    text-align: center;
+}
+@media screen and (max-width: 1025px) {
+    .bg-image{
+        display: none;
+    }
+    .main-intro{
+        margin-top: 3em;
+    }
+    
+}

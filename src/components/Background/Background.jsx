@@ -11,7 +11,7 @@ const Background = () => {
       star.className = `star star--${i}`;
       star.style.height = getRandomNumber(2) + 'px';
       star.style.width = getRandomNumber(2) + 'px';
-      star.style.top = getRandomNumber(100) + '%';
+      star.style.top = getRandomNumber(150) + '%';
       star.style.left = getRandomNumber(100) + '%';
       star.style.animation = `shining ${getRandomNumber(5)}s ${getRandomNumber(5)}s infinite`;
       section.appendChild(star);

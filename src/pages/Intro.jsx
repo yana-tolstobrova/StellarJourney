@@ -1,12 +1,13 @@
 import React from 'react'
 import Background from '../components/Background/Background'
-import { NavBar } from '../components/NavBar/NavBar'
+import MainIntro from '../components/MainIntro'
+import './Intro.css'
 
 export default function Intro() {
   return (
-    <div>
-          <NavBar />
-          <Background />
+    <div className='container'>
+      <MainIntro />
+      <Background />
     </div>
   )
 }

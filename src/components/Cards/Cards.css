@@ -14,7 +14,7 @@
 }
 .selectedCards{
     display: flex;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
     width: 70%;
     margin-left: auto;
     margin-right: auto;
@@ -82,4 +82,29 @@ img.openedCard{
 }
 .display{
     display: block;
+}
+.displayNone{
+    display: none;
+}
+.textAfterBox{
+    text-align: center;
+    font-size: 1.2em;
+    margin-top: 2em;
+}
+@media screen and (max-width:775px){
+    .selectedCards, .timeline{
+        width: 100%;
+    }
+}
+@media screen and (max-width:575px) {
+
+    img.openedCard{
+        width: 100px;
+        margin-top: -240px;
+    }
+    .cardbox{
+        width: 100px;
+        height: 225px;
+    }
+    
 }
