@@ -35,17 +35,16 @@
 .cardbox{
     width: 150px;
     height: 340px;
-    background-color: var(--accent-color);
-    opacity: 0.3;
+    background-color: #513816;
     border-radius: 15px;
 }
-.buttonSave{
-    width: 20%;
-    background-color: aqua;
+.buttonSave, .buttonRestart{
+    background-color: var(--accent-color);
+    border: none;
+    border-radius: 10px;
+    padding: 15px 25px;
 }
-.buttonRestart{
-    width: 20%;
-}
+
 .buttonsBox{
     
     display: none;

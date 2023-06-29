@@ -9,7 +9,7 @@ export default function FavoritesCards() {
       const objectArray = JSON.parse(value);
       const pasadoArray = [objectArray[0].spanishName, objectArray[0].meaning];
       const presenteArray = [objectArray[1].spanishName, objectArray[1].meaning];
-      const futuroArray = [objectArray[2].spanishName, objectArray[2].meaning];
+        const futuroArray = [objectArray[2].spanishName, objectArray[2].meaning];
 
         divArray.push(
         <div key={key}>
