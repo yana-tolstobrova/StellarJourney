@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { fetchFilteredCards } from './scripts/ApiGetArray';
 import './Cards.css';
 
-
 const CardList = () => {
   const [cards, setCards] = useState([]);
   const [selectedCards, setSelectedCards] = useState([]);
@@ -83,7 +82,7 @@ window.onload = () => {
   const value = sessionStorage.getItem('selectedCards');
   
     setIsButtonDisabled(true);
-    
+
     const today = new Date();  
     const year = today.getFullYear(); 
     const month = today.getMonth() + 1;  
@@ -101,7 +100,7 @@ window.onload = () => {
 }
   
   return (
-    
+
     <div>
       <div className='selectedCards'>{renderSelectedCards()}</div>
       <p className={isPDisplayed ? 'displayNone' : 'textAfterBox'}>Elige 3 cartas del mazo</p>
@@ -119,7 +118,7 @@ window.onload = () => {
       ))}
     </div>
     </div>
-    
+
   );
 };
 
