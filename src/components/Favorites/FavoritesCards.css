@@ -1,3 +1,6 @@
+* {
+    font-family: 'Cardo', serif;
+}
 .savedBox{
     width: 50%;
     margin-left: auto;
@@ -14,6 +17,44 @@
 .date{
     font-style: italic;
     font-weight: 300;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.textArea{
+background-color: var(--accent-hover-background);
+    width: 100%;
+    margin-top: 1rem;
+    border: 2px solid var(--accent-color);
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 1.2em;
+    color: white;
+}
+.textArea:hover, .textArea:focus
+ {
+    outline: none;
+}
+.textArea::placeholder {
+    font-size: 1.3em;
+    color: var(--accent-color)}
+.buttonEdit{
+    border: none;
+    outline: none;
+    background-color: var(--accent-color);
+    font-size: 1em;
+    padding: 5px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 1em;
+}
+.buttonEdit:hover{
+    background-color: var(--accent-hover-background);
+}
+.image{
+   display: flex;
+   justify-content: center;
+   margin-bottom: 2em;
 }
 @media screen and (max-width:775px) {
 

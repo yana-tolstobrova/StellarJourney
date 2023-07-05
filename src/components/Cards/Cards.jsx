@@ -60,7 +60,7 @@ const CardList = () => {
       </div>
     ));
   };
-
+  
   const handlePageRefresh = () => {
     setSelectedCards([]);
     setHiddenCards([]);
@@ -68,6 +68,7 @@ const CardList = () => {
     setIsPDisplayed(false);
     setShouldShuffle(true);
     setIsDataSaved(false); // Reset the "isDataSaved" state in TransitionsModal
+    
   };
 
   return (

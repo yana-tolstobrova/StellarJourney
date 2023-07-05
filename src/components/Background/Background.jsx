@@ -4,7 +4,7 @@ import './Background.css';
 const Background = () => {
   useEffect(() => {
     const section = document.querySelector('.section');
-    const starsTotal = 500;
+    const starsTotal = 600;
 
     for (let i = 0; i < starsTotal; i++) {
       const star = document.createElement('div');
