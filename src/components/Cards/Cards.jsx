@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { fetchFilteredCards } from './scripts/ApiGetArray';
+import { fetchFilteredCards } from './services/ApiGetArray';
 import './Cards.css';
+import TransitionsModal from './PopUpSave';
 
 const CardList = () => {
   const [cards, setCards] = useState([]);
@@ -8,7 +9,6 @@ const CardList = () => {
   const [hiddenCards, setHiddenCards] = useState([]);
   const [shouldShuffle, setShouldShuffle] = useState(true);
   const [isButtonsBoxDisplayed, setIsButtonsBoxDisplayed] = useState(false);
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [isPDisplayed, setIsPDisplayed] = useState(false);
 
 
@@ -48,16 +48,12 @@ const CardList = () => {
       setHiddenCards((prevHiddenCards) => [...prevHiddenCards, cardId]);
       setIsButtonsBoxDisplayed(updatedSelectedCards.length === 3);
       setIsPDisplayed(updatedSelectedCards.length !== 0);
-
-      sessionStorage.setItem('selectedCards', JSON.stringify(updatedSelectedCards));
-
-
       return updatedSelectedCards;
     });
 
   }
-};
-
+  };
+  
 const renderSelectedCards = () => {
     return selectedCards.map((card) => (
       <div key={card.id} className='selectedCard'>
@@ -69,50 +65,33 @@ const renderSelectedCards = () => {
   };
 
 const handlePageRefresh = () => {
-  window.location.reload();
-  sessionStorage.clear();
+  //window.location.reload();
+    const savedData = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key.startsWith('Saved_')) {
+      const data = localStorage.getItem(key);
+      savedData.push(JSON.parse(data));
+    }
+  }
+  console.log(savedData[0].date);
+  console.log(savedData[0].selectedCards[0].id);
+  console.log(savedData[0].textareaValue);
+  return savedData;
 };
 
-window.onload = () => {
-  sessionStorage.clear();
-};
-  
-  function saveData() {
-  const selectedCardsKey = `selectedCards_${localStorage.length / 2}`;
-  const value = sessionStorage.getItem('selectedCards');
-  
-    setIsButtonDisabled(true);
-
-    const today = new Date();  
-    const year = today.getFullYear(); 
-    const month = today.getMonth() + 1;  
-    const day = today.getDate();  
-
-    const dateFormat = `${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}/${year}`;
-
-    const DateKey = `Date_${localStorage.length / 2}`;
-    localStorage.setItem(DateKey, dateFormat);
-
-
-  localStorage.setItem(selectedCardsKey, value);
-    sessionStorage.removeItem('selectedCards');
-    
-}
-  
   return (
-
     <div>
       <div className='selectedCards'>{renderSelectedCards()}</div>
       <p className={isPDisplayed ? 'displayNone' : 'textAfterBox'}>Elige 3 cartas del mazo</p>
       <div className={isButtonsBoxDisplayed ? 'buttonsBox display' : 'buttonsBox'}>
-        <button className='buttonSave' onClick={saveData} disabled={isButtonDisabled}>Guardar</button>
+        <TransitionsModal selectedCards={selectedCards}  />
         <button className='buttonRestart' onClick={handlePageRefresh}>Reiniciar</button>
       </div>
       <div className="cards">
       {cards.map((card) => (
         <div key={card.id} onClick={() => handleCardClick(card.id)}
-          className={hiddenCards.includes(card.id) ? "card hidden" : "card"}
->
+          className={hiddenCards.includes(card.id) ? "card hidden" : "card"}>
               <img src={card.cardsReverse.clowReverse} alt={card.name} className="card" />
         </div>
       ))}

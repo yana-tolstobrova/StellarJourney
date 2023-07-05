@@ -72,7 +72,7 @@ img.openedCard{
 }
 
 .buttonRestart:hover, .buttonSave:hover {
-    background-color: #a66c1a;
+    background-color: var(--accent-hover-background);
 }
 
 .buttonsBox{

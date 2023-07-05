@@ -2,7 +2,7 @@
     width: 50%;
     margin-left: auto;
     margin-right: auto;
-    background-color: var(--accent-color);
+    background-color: var(--accent-hover-background);
     padding: 1.5em;
     font-size: 1.2em;
     border-radius: 1em;

@@ -2,7 +2,8 @@
 :root{
   --background: black;
   --text: white;
-  --accent-color: #D0851E;
+  --accent-color: #FDB044;
+  --accent-hover-background: #D0851E;
 }
 
 body {
