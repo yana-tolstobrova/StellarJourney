@@ -10,20 +10,19 @@ const CardList = () => {
   const [shouldShuffle, setShouldShuffle] = useState(true);
   const [isButtonsBoxDisplayed, setIsButtonsBoxDisplayed] = useState(false);
   const [isPDisplayed, setIsPDisplayed] = useState(false);
-
+  const [isDataSaved, setIsDataSaved] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       const filteredCards = await fetchFilteredCards();
       setCards(filteredCards);
-      setShouldShuffle(true); 
-
+      setShouldShuffle(true);
     };
-      
+
     fetchData();
   }, []);
 
-    useEffect(() => {
+  useEffect(() => {
     if (shouldShuffle) {
       const mixedCards = [...cards];
       for (let i = mixedCards.length - 1; i > 0; i--) {
@@ -31,30 +30,28 @@ const CardList = () => {
         [mixedCards[i], mixedCards[j]] = [mixedCards[j], mixedCards[i]];
       }
       setCards(mixedCards);
-      setShouldShuffle(false); 
+      setShouldShuffle(false);
     }
   }, [shouldShuffle, cards]);
 
-
   const handleCardClick = (cardId) => {
-  if (selectedCards.length < 3) {
-    const selectedCard = cards.find((card) => card.id === cardId);
-    if (hiddenCards.includes(cardId)) {
-      return; 
+    if (selectedCards.length < 3) {
+      const selectedCard = cards.find((card) => card.id === cardId);
+      if (hiddenCards.includes(cardId)) {
+        return;
+      }
+
+      setSelectedCards((prevSelectedCards) => {
+        const updatedSelectedCards = [...prevSelectedCards, selectedCard];
+        setHiddenCards((prevHiddenCards) => [...prevHiddenCards, cardId]);
+        setIsButtonsBoxDisplayed(updatedSelectedCards.length === 3);
+        setIsPDisplayed(updatedSelectedCards.length !== 0);
+        return updatedSelectedCards;
+      });
     }
-
-    setSelectedCards((prevSelectedCards) => {
-      const updatedSelectedCards = [...prevSelectedCards, selectedCard];
-      setHiddenCards((prevHiddenCards) => [...prevHiddenCards, cardId]);
-      setIsButtonsBoxDisplayed(updatedSelectedCards.length === 3);
-      setIsPDisplayed(updatedSelectedCards.length !== 0);
-      return updatedSelectedCards;
-    });
-
-  }
   };
-  
-const renderSelectedCards = () => {
+
+  const renderSelectedCards = () => {
     return selectedCards.map((card) => (
       <div key={card.id} className='selectedCard'>
         <img src={card.clowCard} alt={card.name} className="openedCard" />
@@ -64,40 +61,32 @@ const renderSelectedCards = () => {
     ));
   };
 
-const handlePageRefresh = () => {
-  //window.location.reload();
-    const savedData = [];
-  for (let i = 0; i < localStorage.length; i++) {
-    const key = localStorage.key(i);
-    if (key.startsWith('Saved_')) {
-      const data = localStorage.getItem(key);
-      savedData.push(JSON.parse(data));
-    }
-  }
-  console.log(savedData[0].date);
-  console.log(savedData[0].selectedCards[0].id);
-  console.log(savedData[0].textareaValue);
-  return savedData;
-};
+  const handlePageRefresh = () => {
+    setSelectedCards([]);
+    setHiddenCards([]);
+    setIsButtonsBoxDisplayed(false);
+    setIsPDisplayed(false);
+    setShouldShuffle(true);
+    setIsDataSaved(false); // Reset the "isDataSaved" state in TransitionsModal
+  };
 
   return (
     <div>
       <div className='selectedCards'>{renderSelectedCards()}</div>
       <p className={isPDisplayed ? 'displayNone' : 'textAfterBox'}>Elige 3 cartas del mazo</p>
       <div className={isButtonsBoxDisplayed ? 'buttonsBox display' : 'buttonsBox'}>
-        <TransitionsModal selectedCards={selectedCards}  />
+        <TransitionsModal selectedCards={selectedCards} isDataSaved={isDataSaved} setIsDataSaved={setIsDataSaved} />
         <button className='buttonRestart' onClick={handlePageRefresh}>Reiniciar</button>
       </div>
       <div className="cards">
-      {cards.map((card) => (
-        <div key={card.id} onClick={() => handleCardClick(card.id)}
-          className={hiddenCards.includes(card.id) ? "card hidden" : "card"}>
-              <img src={card.cardsReverse.clowReverse} alt={card.name} className="card" />
-        </div>
-      ))}
+        {cards.map((card) => (
+          <div key={card.id} onClick={() => handleCardClick(card.id)}
+            className={hiddenCards.includes(card.id) ? "card hidden" : "card"}>
+            <img src={card.cardsReverse.clowReverse} alt={card.name} className="card" />
+          </div>
+        ))}
+      </div>
     </div>
-    </div>
-
   );
 };
 
