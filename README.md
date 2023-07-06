@@ -10,3 +10,7 @@ npm install concurrently --save-dev /for run at the same time react-app and json
 }
 
 npm start
+
+clear localhost port:
+lsof -i :<port_number>
+kill <pid>
