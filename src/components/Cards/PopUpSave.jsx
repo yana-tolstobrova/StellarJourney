@@ -28,7 +28,7 @@ const style = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center', 
-  '@media (max-width: 775px)': { // Add media query for screen width less than or equal to 600px
+  '@media (max-width: 775px)': { 
     width: '80%',
   },
 
@@ -74,12 +74,10 @@ export default function TransitionsModal({ selectedCards, isDataSaved, setIsData
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-function reset() {
-        setTextareaValue('');
-
+  function reset() {
+  setTextareaValue('');
   }
   const handleSave = () => {
-    // Perform save logic with the textarea value
     const today = new Date();
     const year = today.getFullYear();
     const month = today.getMonth() + 1;
@@ -97,7 +95,6 @@ function reset() {
     localStorage.setItem(SavedKey, JSON.stringify(savedData));
     setIsDataSaved(true);
     reset();
-    // Close the modal
     setOpen(false);
   };
 
@@ -139,7 +136,6 @@ function reset() {
                 Cerrar
               </CustomButton>
               </div>
-              
             </Box>
           </Fade>
         </Modal>
