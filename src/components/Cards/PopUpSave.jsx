@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+import axios from 'axios';
 
 const theme = createTheme({
   typography: {
@@ -77,6 +78,15 @@ export default function TransitionsModal({ selectedCards, isDataSaved, setIsData
   function reset() {
   setTextareaValue('');
   }
+  function saveDataToServer(savedData) {
+    axios.post('http://localhost:3001/sakura-cards', savedData)
+    .then(response => {
+      console.log('Data saved to server:', response.data);
+    })
+    .catch(error => {
+      console.error('Error saving data:', error.message);
+    });
+}
   const handleSave = () => {
     const today = new Date();
     const year = today.getFullYear();
@@ -91,8 +101,10 @@ export default function TransitionsModal({ selectedCards, isDataSaved, setIsData
       textareaValue: textareaValue,
     };
 
-    const SavedKey = `Saved_${localStorage.length}`;
-    localStorage.setItem(SavedKey, JSON.stringify(savedData));
+    /*{const SavedKey = `Saved_${localStorage.length}`;
+    localStorage.setItem(SavedKey, JSON.stringify(savedData));}*/
+    
+    saveDataToServer(savedData)
     setIsDataSaved(true);
     reset();
     setOpen(false);

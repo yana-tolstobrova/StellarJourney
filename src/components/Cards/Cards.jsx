@@ -67,7 +67,7 @@ const CardList = () => {
     setIsButtonsBoxDisplayed(false);
     setIsPDisplayed(false);
     setShouldShuffle(true);
-    setIsDataSaved(false); // Reset the "isDataSaved" state in TransitionsModal
+    setIsDataSaved(false); 
     
   };
 

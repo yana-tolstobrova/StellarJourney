@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './FavoritesCards.css';
 import DeleteModal from './PopUpDelete';
 import Cards from '../../assets/cards-saved.svg'
+import axios from 'axios';
 
 
 export default function FavoritesCards() {
@@ -12,22 +13,17 @@ export default function FavoritesCards() {
   }, []);
 
   function fetchData() {
-  const savedData = [];
-  const keys = [];
-  for (let i = 0; i < localStorage.length; i++) {
-    const key = localStorage.key(i);
-    if (key.startsWith('Saved_')) {
-      keys.push(key);
-    }
-  }
-  keys.sort().reverse(); // Sort the keys in descending order
-
-  for (const key of keys) {
-    const data = localStorage.getItem(key);
-    savedData.push(JSON.parse(data));
-  }
-  setSavedData(savedData);
+  axios.get('http://localhost:3001/sakura-cards')
+    .then(response => {
+      const reversedData = response.data.reverse();
+      setSavedData(reversedData);
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error.message);
+    });
 }
+
+
 
 
   const [editedIndex, setEditedIndex] = useState(-1);
@@ -39,29 +35,42 @@ export default function FavoritesCards() {
   };
 
   const handleSaveEdit = (index) => {
-    const updatedData = {
-      ...savedData[index],
-      textareaValue: editedTextareaValue,
-    };
-    savedData[index] = updatedData;
-
-    const key = localStorage.key(index);
-    localStorage.setItem(key, JSON.stringify(updatedData));
-
-    setEditedIndex(-1);
-    setEditedTextareaValue('');
+  const updatedData = {
+    ...savedData[index],
+    textareaValue: editedTextareaValue,
   };
+
+  axios.put(`http://localhost:3001/sakura-cards/${savedData[index].id}`, updatedData)
+    .then(response => {
+      const newData = [...savedData];
+      newData[index] = response.data;
+      setSavedData(newData);
+    })
+    .catch(error => {
+      console.error('Error saving data:', error.message);
+    });
+
+  setEditedIndex(-1);
+  setEditedTextareaValue('');
+};
+
 
   const handleDelete = (index) => {
-    const key = localStorage.key(index);
-    localStorage.removeItem(key);
-    setSavedData((prevSavedData) => {
-      const newData = [...prevSavedData];
-      newData.splice(index, 1);
-      return newData;
+  const id = savedData[index].id;
+
+  axios.delete(`http://localhost:3001/sakura-cards/${id}`)
+    .then(() => {
+      setSavedData(prevSavedData => {
+        const newData = [...prevSavedData];
+        newData.splice(index, 1);
+        return newData;
+      });
+    })
+    .catch(error => {
+      console.error('Error deleting data:', error.message);
     });
-    // Perform any additional delete logic or state updates
-  };
+};
+
 
   const divArray = savedData.map((data, index) => (
     <div key={index} className='savedBox'>
