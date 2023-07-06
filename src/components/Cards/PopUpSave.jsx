@@ -100,9 +100,6 @@ export default function TransitionsModal({ selectedCards, isDataSaved, setIsData
       selectedCards: selectedCards,
       textareaValue: textareaValue,
     };
-
-    /*{const SavedKey = `Saved_${localStorage.length}`;
-    localStorage.setItem(SavedKey, JSON.stringify(savedData));}*/
     
     saveDataToServer(savedData)
     setIsDataSaved(true);
